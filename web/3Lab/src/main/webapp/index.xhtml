@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <title>Web Lab 3</title>
+    <h:outputStylesheet library="styles" name="main.css"/>
+</h:head>
+
+<h:body>
+    <h:panelGroup layout="block" id="header">
+        <h1>Web_Lab3 95732</h1>
+        <hr class="line"/>
+        <h2 >Liashenko Nikita group number P3209</h2>
+    </h:panelGroup>
+    <div class="clock-container" style="background-image: url('https://user-images.githubusercontent.com/42720361/80282419-a293a400-8711-11ea-81c7-1c44e2980db2.png')">
+        <span id="text3d"></span>
+        <div class="hour"></div>
+        <div class="minute"></div>
+        <div class="second"></div>
+    </div>
+    <h:panelGroup layout="block" style="text-align: center; border: none">
+        <h:button outcome="goToMain" value="Go to Main" styleClass="abstract-util-button" style="margin-top: 10px"/>
+    </h:panelGroup>
+    <h:outputScript name="scripts/clockHendler.js" target="body"/>
+
+</h:body>
+
+</html>

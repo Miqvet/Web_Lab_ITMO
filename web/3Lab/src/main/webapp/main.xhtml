@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+<h:head>
+    <title>Web Lab 3</title>
+    <h:outputStylesheet library="styles" name="main.css"/>
+</h:head>
+
+<h:body>
+    <h:panelGroup layout="block" id="header">
+        <h1>Main page of this lab</h1>
+        <hr class="line"/>
+        <h3 > Test something</h3>
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" id="sidebar">
+        <p id = "score">Score: 0</p>
+        <div class="scroll-table">
+        <table>
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Result</th>
+                <th>X,Y,R</th>
+            </tr>
+            </thead>
+        </table>
+        <div class="scroll-table-body">
+                <h:dataTable styleClass="rainbow" id = "myTable" var="result" value="#{resultsControllerBean.results}">
+                    <h:column class="#{result.result ? 'cell-in' : 'cell-out'}">
+                        <h:outputText value="#{result.time}" />
+                    </h:column>
+                    <h:column class="#{result.result ? 'result-in' : 'result-out'}">
+                        <h:outputText value="#{result.result}" />
+                    </h:column>
+                    <h:column class="#{result.result ? 'cell-in' : 'cell-out'}">
+                        <h:outputText value="[#{result.x},#{result.y},#{result.r}]" />
+                    </h:column>
+                </h:dataTable>
+        </div>
+        </div>
+<!--        <h:form id="orm">-->
+<!--            <h:outputLabel for="SR" value="Sort R" style="text-align: left; font-size: 15px" />-->
+
+<!--            <h:selectOneMenu value = "#{resultsControllerBean.maybeSortedByR}" id = "SR">-->
+<!--            <f:selectItem itemValue = "0" itemLabel = "Any" />-->
+<!--            <f:selectItem itemValue = "2" itemLabel = "Item 2" />-->
+<!--            <f:selectItem itemValue = "2.1" itemLabel = "Item 2.1" />-->
+<!--            <f:selectItem itemValue = "2.2" itemLabel = "Item 2.2" />-->
+<!--            <f:selectItem itemValue = "2.3" itemLabel = "Item 2.3" />-->
+<!--            <f:selectItem itemValue = "2.4" itemLabel = "Item 2.4" />-->
+<!--            <f:selectItem itemValue = "2.5" itemLabel = "Item 2.5" />-->
+<!--            <f:selectItem itemValue = "2.6" itemLabel = "Item 2.6" />-->
+<!--            <f:selectItem itemValue = "2.7" itemLabel = "Item 2.7" />-->
+<!--            <f:selectItem itemValue = "2.8" itemLabel = "Item 2.8" />-->
+<!--            <f:selectItem itemValue = "2.9" itemLabel = "Item 2.9" />-->
+<!--            <f:selectItem itemValue = "3" itemLabel = "Item 3" />-->
+<!--            <p:ajax update="myTable" listener="#{resultsControllerBean.sSortedByR1()}" oncomplete="updateAll();" render="@form myTable canvas myForm" />-->
+<!--        </h:selectOneMenu>-->
+<!--        </h:form>-->
+    </h:panelGroup>
+
+    <h:panelGroup layout="block" id="main">
+        <canvas id="canvas" class="draw">Your browser does not support the HTML5 canvas element.</canvas>
+
+        <h:form id="myForm">
+            <h:commandButton value="-3" onclick="updateX(-3); return false;" styleClass="#{xBean.getButtonCssClass(-3)}"/>
+            <h:commandButton value="-2" onclick="updateX(-2); return false;" styleClass="#{xBean.getButtonCssClass(-2)}"/>
+            <h:commandButton value="-1" onclick="updateX(-1); return false;" styleClass="#{xBean.getButtonCssClass(-1)}"/>
+            <h:commandButton value="0" onclick="updateX(0); return false;" styleClass="#{xBean.getButtonCssClass(0)}"/>
+            <h:commandButton value="1" onclick="updateX(1); return false;" styleClass="#{xBean.getButtonCssClass(1)}"/>
+            <h:commandButton value="2" onclick="updateX(2); return false;" styleClass="#{xBean.getButtonCssClass(2)}"/>
+            <h:commandButton value="3" onclick="updateX(3); return false;" styleClass="#{xBean.getButtonCssClass(3)}"/>
+            <h:commandButton value="4" onclick="updateX(4); return false;" styleClass="#{xBean.getButtonCssClass(4)}"/>
+            <h:commandButton value="5" onclick="updateX(5); return false;" styleClass="#{xBean.getButtonCssClass(5)}"/>
+
+
+            <!--                        <h:commandButton label="-3" value="#{xBean.XByBtn}" listener="#{xBean.setXByBtn(-3)}" styleClass="#{xBean.getButtonCssClass(-3)}"/>-->
+<!--                        <h:commandButton label="-2" value="#{xBean.XByBtn}" listener="#{xBean.setXByBtn(-2)}" styleClass="#{xBean.getButtonCssClass(-2)}"/>-->
+<!--                        <h:commandButton label="-1" value="#{xBean.XByBtn}" listener="#{xBean.setXByBtn(-1)}" styleClass="#{xBean.getButtonCssClass(-1)}"/>-->
+<!--            <h:commandButton value="-0" listener="#{xBean.setXByBtn(0)}" styleClass="#{xBean.getButtonCssClass(0)}"/>-->
+<!--            <h:commandButton value="1" listener="#{xBean.setXByBtn(1)}" styleClass="#{xBean.getButtonCssClass(1)}"/>-->
+<!--            <h:commandButton value="2" listener="#{xBean.setXByBtn(2)}" styleClass="#{xBean.getButtonCssClass(2)}"/>-->
+<!--            <h:commandButton value="3" action="#{xBean.setXByBtn(3)}" styleClass="#{xBean.getButtonCssClass(3)}"/>-->
+<!--            <h:commandButton value="4" action="#{xBean.setXByBtn(4)}" styleClass="#{xBean.getButtonCssClass(4)}"/>-->
+<!--            <h:commandButton value="5" action="#{xBean.setXByBtn(5)}" styleClass="#{xBean.getButtonCssClass(5)}"/>-->
+
+            <h:panelGrid columns="1" style="margin-bottom: 10px" id="YRGrid">
+                <h:panelGrid columns="2" style="margin-bottom: 5px" id="ydec">
+                    <h:outputLabel for="y" value='Coordinate Y (-3; 5)'/>
+                    <h:inputText id="y" styleClass="coords-input" value="#{yBean.YValue}"
+                                 required="true"
+                                 requiredMessage="Value Y is required"
+                                 validatorMessage="The value must be from -3 to 5"
+                                 converter="CommaToDotConverter">
+                        <f:validateDoubleRange minimum="-3" maximum="5"/>
+                    </h:inputText>
+                    <h:outputText value=" " style="color:  -moz-default-background-color"/>
+                    <h:message for="y" style="color:magenta; font-size: 15px"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" style="margin-bottom: 5px" id="r">
+                    <h:outputLabel for="decimal" value="Coordinate R (2;5)"/>
+                    <p:inputText id="decimal"
+                                 requiredMessage="Value R is required"
+                                 validatorMessage="The value must be from 2 to 5"
+                                 value="#{rBean.RValue}"
+                                 style="height: 21px"
+                                 converter="CommaToDotConverter">
+                        <f:validateDoubleRange minimum="2" maximum="5"/>
+                    </p:inputText>
+                    <p:slider for="decimal" minValue="2" maxValue="5" step="0.1" range="false"
+                              onSlideEnd="updateCanvas(event, ui)"/>
+                    <h:message for="decimal" style="color:magenta; font-size: 15px"  />
+                </h:panelGrid>
+            </h:panelGrid>
+
+            <h:outputText value="Util Buttons"/>
+            <h:panelGrid columns="3">
+                <h:commandButton value="Send form" styleClass="abstract-util-button submit-btn" id="sendBTN" action="updateAll();">
+                    <f:ajax execute="@form" listener="#{resultsControllerBean.addResult(xBean.XValue, yBean.YValue, rBean.RValue)}" render="@form canvas myTable myForm"/>
+                </h:commandButton>
+                <h:commandButton value="Clear table" styleClass="abstract-util-button clear-button" action="updateAll();" style="border-color: yellow">
+                    <f:ajax execute="@form" listener="#{resultsControllerBean.clearResults()}" render="@form myTable canvas myForm" />
+                </h:commandButton>
+                <h:button outcome="returnToIndex" value="Back to Start" styleClass="util-button" style="border-radius: 5px; border-color: black"/>
+            </h:panelGrid>
+
+        </h:form>
+    </h:panelGroup>
+
+
+
+    <h:panelGroup layout="block" id="footer">
+        <h:outputText value="Made with the support of ITMO and a lot of suffering" escape="false"/>
+    </h:panelGroup>
+
+    <h:outputScript library="scripts" name="drawing.js"/>
+    <h:outputScript library="scripts" name="someAnimation.js"/>
+
+    <h:outputScript>
+        drawCoordsPlane("#{rBean.RValue == null ? "r" : rBean.RValue}");
+        updateScore();
+    </h:outputScript>
+
+    <h:outputScript>
+        function updateAll() {
+            updateScore();
+        }
+    </h:outputScript>
+
+    <h:form id="update-x">
+        <h:inputHidden id="xValBTN" value="#{xBean.XByBtn}"/>
+        <h:commandButton id="updateXVal" styleClass="hidden">
+            <f:ajax execute="@form"
+                    listener="#{xBean.sXByBtn()}"
+                    render="@form myTable canvas myForm"/>
+        </h:commandButton>
+    </h:form>
+
+    <h:form id="update-radius">
+        <h:inputHidden id="radius" value="#{rBean.trueRVal}"/>
+        <h:commandButton id="updateCanvas" styleClass="hidden">
+            <f:ajax execute="@form"
+                    listener="#{rBean.setRValueByNow()}"
+                    render="@form myTable canvas myForm"/>
+        </h:commandButton>
+    </h:form>
+
+    <h:form id="graph-form">
+        <h:inputHidden id="xValue" value="#{xBean.XValue}" />
+        <h:inputHidden id="yValue" value="#{yBean.YValue}" />
+        <h:inputHidden id="rValue" value="#{rBean.RValue}" />
+        <h:commandButton id="handleClick" styleClass="hidden">
+            <f:ajax execute="@form"
+                    listener="#{resultsControllerBean.addResult(xBean.XValue, yBean.YValue, rBean.RValue)}"
+                    render="@form myTable canvas myForm"
+                    action="updateAll();"/>
+        </h:commandButton>
+    </h:form>
+</h:body>
+
+</html>
