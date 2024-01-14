@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.resultsTable {
+  @media (min-width: 1032px) {
+    width: 75%;
+  }
+
+  @media (min-width: 689px) and (max-width: 1032px) {
+    width: 60%;
+  }
+
+  @media (max-width: 689px) {
+    width: 60%;
+  }
+
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  margin: 2% auto;
+  background-color: #8a8a8a;
+  border-radius: 20px;
+  color: white;
+  border: 3px solid transparent;
+  border-image: linear-gradient(45deg, rgba(250, 0, 255, 1), rgba(0, 255, 255, 1));
+}
+
+.resultsTable th {
+  padding: 10px 15px;
+  background-color: #4CAF50;
+  color: #111;
+}
+
+.new-cell, .result-cell-in, .result-cell-out {
+  text-align: left;
+  border-left: 2px solid #ddd;
+  border-right: 2px solid #ddd;
+  font-size: 16px;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.result-cell-in, .result-cell-out {
+  font-weight: bold;
+  font-size: 17px;
+}
+
+.result-cell-in {
+  color: #0f0;
+}
+
+.result-cell-out {
+  color: #f00;
+}
+
+.resultsTable tr th:first-child {
+  border-radius: 7px 0 0 0;
+}
+
+.resultsTable tr th:last-child {
+  border-radius: 0 7px 0 0;
+}
+
+.resultsTable tr th:not(:first-child):not(:last-child) {
+  border-left: 2px solid #ddd;
+  border-right: 2px solid #ddd;
+}
+
+.resultsTable td, th {
+  text-align: left;
+  padding: 8px;
+  border-bottom: 2px solid #ddd;
+}
+
+.resultsTable tr:hover {
+
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.5), 0 0 20px rgba(0, 255, 255, 0.5), 0 0 30px rgba(0, 255, 255, 0.5);
+  transform: scale(1.01);
+}
+
+.resultsTable tr:nth-child(even) {
+  background-color: #c7c7c7;
+}
+
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
